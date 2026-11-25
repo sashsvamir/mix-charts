@@ -15,7 +15,7 @@ new Chart(el.querySelector('canvas'),{type:'line',plugins:[dl],data:{labels:R.L,
 options:{maintainAspectRatio:false,interaction:{mode:'nearest',intersect:true},plugins:{legend:{labels:{color:M,filter:l=>l.text}},
 tooltip:{...tt,filter:t=>arm(t)&&t.datasetIndex>1,callbacks:{title:t=>t[0].label+' Гц · норма '+R.lo[t[0].dataIndex]+'…+'+R.hi[t[0].dataIndex],label:t=>{const v=V[t.datasetIndex-2];return v.n+': '+sg(t.raw)+' дБ (больше, чем у '+v.p[t.dataIndex]+'% рефов)'}}}},
 scales:{x:{...ax,grid:{display:false}},y:{...ax,min:-6,max:6}}}});
-const g=el.lastChild;R.dy.forEach((d,k)=>{const vv=V.map((v,i)=>[v,i]).filter(([v])=>v.m&&v.m[k]!=null&&(v.f||k<2));if(!vv.length)return;
+const g=el.lastChild;R.dy.forEach((d,k)=>{const vv=V.map((v,i)=>[v,i]).filter(([v])=>v.m&&v.m[k]!=null&&(v.f||k<(R.est||2)));if(!vv.length)return;
 const w=document.createElement('div');w.innerHTML='<div style="font-size:12px;color:var(--text-secondary)">'+d.t+' · серое — рефы 25–75%, черта — медиана ('+d.q.join(' / ')+')</div><div style="position:relative;height:110px"><canvas></canvas></div>';g.appendChild(w);
 new Chart(w.querySelector('canvas'),{type:'scatter',data:{datasets:vv.map(([v,i])=>({label:v.n,_v:v,data:[{x:v.m[k],y:0}],pointStyle:'triangle',rotation:180,pointRadius:i==N-1?10:7,backgroundColor:col(i)}))},
 options:{maintainAspectRatio:false,interaction:{mode:'nearest',intersect:true},plugins:{legend:{display:false},tooltip:{...tt,filter:arm,callbacks:{title:()=>'',label:t=>t.dataset.label+': '+t.raw.x+' (больше, чем у '+t.dataset._v.q[k]+'% рефов)'}}},
